@@ -1,58 +1,50 @@
 {
-  "name": "ajv-errors",
-  "version": "1.0.1",
-  "description": "Custom error messages in JSON-Schema for Ajv validator",
+  "name": "ansi-html",
+  "version": "0.0.7",
+  "description": "An elegant lib that converts the chalked (ANSI) text to HTML.",
   "main": "index.js",
-  "files": [
-    "lib"
-  ],
   "scripts": {
-    "build": "node node_modules/ajv/scripts/compile-dots.js node_modules/ajv/lib lib",
-    "eslint": "eslint *.js spec",
-    "test-spec": "mocha spec/*.spec.js -R spec",
-    "test-cov": "nyc npm run test-spec",
-    "test": "npm run eslint && npm run build && npm run test-cov",
-    "prepublish": "npm run build"
+    "test": "./node_modules/.bin/mocha -R spec -t 5000"
+  },
+  "bin": {
+    "ansi-html": "./bin/ansi-html"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/epoberezkin/ajv-errors.git"
+    "url": "git://github.com/Tjatse/ansi-html.git"
   },
   "keywords": [
-    "ajv",
-    "json-schema",
-    "validator",
-    "error",
-    "messages"
+    "ansi",
+    "ansi html",
+    "chalk html"
   ],
-  "author": "",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/epoberezkin/ajv-errors/issues"
+  "author": {
+    "name": "Tjatse"
   },
-  "homepage": "https://github.com/epoberezkin/ajv-errors#readme",
-  "peerDependencies": {
-    "ajv": ">=5.0.0"
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Tjatse/ansi-html/issues"
+  },
+  "engines": [
+    "node >= 0.8.0"
+  ],
+  "dependencies": {
   },
   "devDependencies": {
-    "ajv": "^5.0.0",
-    "coveralls": "^2.11.16",
-    "dot": "^1.1.1",
-    "eslint": "^3.17.0",
-    "glob": "^7.1.1",
-    "js-beautify": "^1.6.12",
-    "mocha": "^3.2.0",
-    "nyc": "^10.1.2",
-    "pre-commit": "^1.2.2"
+    "mocha": "^1.21.4",
+    "chai": "^1.9.1",
+    "chalk": "^1.1.3",
+    "lodash": "^2.4.2"
   },
-  "nyc": {
-    "exclude": [
-      "**/spec/**",
-      "node_modules"
-    ],
-    "reporter": [
-      "lcov",
-      "text-summary"
+  "readmeFilename": "README.md",
+  "homepage": "https://github.com/Tjatse/ansi-html",
+  "standard": {
+    "ignore": [],
+    "globals": [
+      "describe",
+      "it",
+      "before",
+      "after"
     ]
   }
 }
