@@ -1,49 +1,54 @@
-atob
-===
+# ESLint Scope
 
-| **atob**
-| [btoa](https://git.coolaj86.com/coolaj86/btoa.js)
-| [unibabel.js](https://git.coolaj86.com/coolaj86/unibabel.js)
-| Sponsored by [ppl](https://ppl.family)
+ESLint Scope is the [ECMAScript](http://www.ecma-international.org/publications/standards/Ecma-262.htm) scope analyzer used in ESLint. It is a fork of [escope](http://github.com/estools/escope).
 
-Uses `Buffer` to emulate the exact functionality of the browser's atob.
+## Usage
 
-Note: Unicode may be handled incorrectly (like the browser).
+Install:
 
-It turns base64-encoded <strong>a</strong>scii data back **to** <strong>b</strong>inary.
-
-```javascript
-(function () {
-  "use strict";
-
-  var atob = require('atob');
-  var b64 = "SGVsbG8sIFdvcmxkIQ==";
-  var bin = atob(b64);
-
-  console.log(bin); // "Hello, World!"
-}());
+```
+npm i eslint-scope --save
 ```
 
-### Need Unicode and Binary Support in the Browser?
+Example:
 
-Check out [unibabel.js](https://git.coolaj86.com/coolaj86/unibabel.js)
+```js
+var eslintScope = require('eslint-scope');
+var espree = require('espree');
+var estraverse = require('estraverse');
 
-Changelog
-=======
+var ast = espree.parse(code);
+var scopeManager = eslintScope.analyze(ast);
 
-  * v2.1.0 address a few issues and PRs, update URLs
-  * v2.0.0 provide browser version for ios web workers
-  * v1.2.0 provide (empty) browser version
-  * v1.1.3 add MIT license
-  * v1.1.2 node only
+var currentScope = scopeManager.acquire(ast);   // global scope
 
-LICENSE
-=======
+estraverse.traverse(ast, {
+    enter: function(node, parent) {
+        // do stuff
 
-Code copyright 2012-2018 AJ ONeal
+        if (/Function/.test(node.type)) {
+            currentScope = scopeManager.acquire(node);  // get current function scope
+        }
+    },
+    leave: function(node, parent) {
+        if (/Function/.test(node.type)) {
+            currentScope = currentScope.upper;  // set to parent scope
+        }
 
-Dual-licensed MIT and Apache-2.0
+        // do stuff
+    }
+});
+```
 
-Docs copyright 2012-2018 AJ ONeal
+## Contributing
 
-Docs released under [Creative Commons](https://git.coolaj86.com/coolaj86/atob.js/blob/master/LICENSE.DOCS).
+Issues and pull requests will be triaged and responded to as quickly as possible. We operate under the [ESLint Contributor Guidelines](http://eslint.org/docs/developer-guide/contributing), so please be sure to read them before contributing. If you're not sure where to dig in, check out the [issues](https://github.com/eslint/eslint-scope/issues).
+
+## Build Commands
+
+* `npm test` - run all linting and tests
+* `npm run lint` - run all linting
+
+## License
+
+ESLint Scope is licensed under a permissive BSD 2-clause license.
