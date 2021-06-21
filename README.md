@@ -1,56 +1,49 @@
-![Async Logo](https://raw.githubusercontent.com/caolan/async/master/logo/async-logo_readme.jpg)
+atob
+===
 
-[![Build Status via Travis CI](https://travis-ci.org/caolan/async.svg?branch=master)](https://travis-ci.org/caolan/async)
-[![NPM version](https://img.shields.io/npm/v/async.svg)](https://www.npmjs.com/package/async)
-[![Coverage Status](https://coveralls.io/repos/caolan/async/badge.svg?branch=master)](https://coveralls.io/r/caolan/async?branch=master)
-[![Join the chat at https://gitter.im/caolan/async](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/caolan/async?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![libhive - Open source examples](https://www.libhive.com/providers/npm/packages/async/examples/badge.svg)](https://www.libhive.com/providers/npm/packages/async)
-[![jsDelivr Hits](https://data.jsdelivr.com/v1/package/npm/async/badge?style=rounded)](https://www.jsdelivr.com/package/npm/async)
+| **atob**
+| [btoa](https://git.coolaj86.com/coolaj86/btoa.js)
+| [unibabel.js](https://git.coolaj86.com/coolaj86/unibabel.js)
+| Sponsored by [ppl](https://ppl.family)
 
+Uses `Buffer` to emulate the exact functionality of the browser's atob.
 
-Async is a utility module which provides straight-forward, powerful functions for working with [asynchronous JavaScript](http://caolan.github.io/async/global.html). Although originally designed for use with [Node.js](https://nodejs.org/) and installable via `npm install --save async`, it can also be used directly in the browser.
+Note: Unicode may be handled incorrectly (like the browser).
 
-This version of the package is optimized for the Node.js environment. If you use Async with webpack, install [`async-es`](https://www.npmjs.com/package/async-es) instead.
-
-For Documentation, visit <https://caolan.github.io/async/>
-
-*For Async v1.5.x documentation, go [HERE](https://github.com/caolan/async/blob/v1.5.2/README.md)*
-
+It turns base64-encoded <strong>a</strong>scii data back **to** <strong>b</strong>inary.
 
 ```javascript
-// for use with Node-style callbacks...
-var async = require("async");
+(function () {
+  "use strict";
 
-var obj = {dev: "/dev.json", test: "/test.json", prod: "/prod.json"};
-var configs = {};
+  var atob = require('atob');
+  var b64 = "SGVsbG8sIFdvcmxkIQ==";
+  var bin = atob(b64);
 
-async.forEachOf(obj, (value, key, callback) => {
-    fs.readFile(__dirname + value, "utf8", (err, data) => {
-        if (err) return callback(err);
-        try {
-            configs[key] = JSON.parse(data);
-        } catch (e) {
-            return callback(e);
-        }
-        callback();
-    });
-}, err => {
-    if (err) console.error(err.message);
-    // configs is now a map of JSON data
-    doSomethingWith(configs);
-});
+  console.log(bin); // "Hello, World!"
+}());
 ```
 
-```javascript
-var async = require("async");
+### Need Unicode and Binary Support in the Browser?
 
-// ...or ES2017 async functions
-async.mapLimit(urls, 5, async function(url) {
-    const response = await fetch(url)
-    return response.body
-}, (err, results) => {
-    if (err) throw err
-    // results is now an array of the response bodies
-    console.log(results)
-})
-```
+Check out [unibabel.js](https://git.coolaj86.com/coolaj86/unibabel.js)
+
+Changelog
+=======
+
+  * v2.1.0 address a few issues and PRs, update URLs
+  * v2.0.0 provide browser version for ios web workers
+  * v1.2.0 provide (empty) browser version
+  * v1.1.3 add MIT license
+  * v1.1.2 node only
+
+LICENSE
+=======
+
+Code copyright 2012-2018 AJ ONeal
+
+Dual-licensed MIT and Apache-2.0
+
+Docs copyright 2012-2018 AJ ONeal
+
+Docs released under [Creative Commons](https://git.coolaj86.com/coolaj86/atob.js/blob/master/LICENSE.DOCS).
