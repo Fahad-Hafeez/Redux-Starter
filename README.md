@@ -1,105 +1,56 @@
-# assert
+![Async Logo](https://raw.githubusercontent.com/caolan/async/master/logo/async-logo_readme.jpg)
 
-[![Build Status](https://travis-ci.org/browserify/commonjs-assert.svg?branch=master)](https://travis-ci.org/browserify/commonjs-assert)
-
-This module is used for writing unit tests for your applications, you can access it with `require('assert')`.
-
-It aims to be fully compatibe with the [node.js assert module](http://nodejs.org/api/assert.html), same API and same behavior, just adding support for web browsers.
-The API and code may contain traces of the [CommonJS Unit Testing 1.0 spec](http://wiki.commonjs.org/wiki/Unit_Testing/1.0) which they were based on, but both have evolved significantly since then.
-
-A `strict` and a `legacy` mode exist, while it is recommended to only use `strict mode`.
-
-## Strict mode
-
-When using the `strict mode`, any `assert` function will use the equality used in the strict function mode. So `assert.deepEqual()` will, for example, work the same as `assert.deepStrictEqual()`.
-
-It can be accessed using:
-
-```js
-const assert = require('assert').strict;
-```
-
-## Legacy mode
-
-> Deprecated: Use strict mode instead.
-
-When accessing `assert` directly instead of using the `strict` property, the
-[Abstract Equality Comparison](https://tc39.github.io/ecma262/#sec-abstract-equality-comparison) will be used for any function without a
-"strict" in its name (e.g. `assert.deepEqual()`).
-
-It can be accessed using:
-
-```js
-const assert = require('assert');
-```
-
-It is recommended to use the `strict mode` instead as the Abstract Equality Comparison can often have surprising results. Especially
-in case of `assert.deepEqual()` as the used comparison rules there are very lax.
-
-E.g.
-
-```js
-// WARNING: This does not throw an AssertionError!
-assert.deepEqual(/a/gi, new Date());
-```
+[![Build Status via Travis CI](https://travis-ci.org/caolan/async.svg?branch=master)](https://travis-ci.org/caolan/async)
+[![NPM version](https://img.shields.io/npm/v/async.svg)](https://www.npmjs.com/package/async)
+[![Coverage Status](https://coveralls.io/repos/caolan/async/badge.svg?branch=master)](https://coveralls.io/r/caolan/async?branch=master)
+[![Join the chat at https://gitter.im/caolan/async](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/caolan/async?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![libhive - Open source examples](https://www.libhive.com/providers/npm/packages/async/examples/badge.svg)](https://www.libhive.com/providers/npm/packages/async)
+[![jsDelivr Hits](https://data.jsdelivr.com/v1/package/npm/async/badge?style=rounded)](https://www.jsdelivr.com/package/npm/async)
 
 
-## assert.fail(actual, expected, message, operator)
-Throws an exception that displays the values for actual and expected separated by the provided operator.
+Async is a utility module which provides straight-forward, powerful functions for working with [asynchronous JavaScript](http://caolan.github.io/async/global.html). Although originally designed for use with [Node.js](https://nodejs.org/) and installable via `npm install --save async`, it can also be used directly in the browser.
 
-## assert(value, message), assert.ok(value, [message])
-Tests if value is truthy, it is equivalent to assert.equal(true, !!value, message);
+This version of the package is optimized for the Node.js environment. If you use Async with webpack, install [`async-es`](https://www.npmjs.com/package/async-es) instead.
 
-## assert.equal(actual, expected, [message])
-Tests shallow, coercive equality with the equal comparison operator ( == ).
+For Documentation, visit <https://caolan.github.io/async/>
 
-## assert.notEqual(actual, expected, [message])
-Tests shallow, coercive non-equality with the not equal comparison operator ( != ).
+*For Async v1.5.x documentation, go [HERE](https://github.com/caolan/async/blob/v1.5.2/README.md)*
 
-## assert.deepEqual(actual, expected, [message])
-Tests for deep equality.
-
-## assert.deepStrictEqual(actual, expected, [message])
-Tests for deep equality, as determined by the strict equality operator ( === )
-
-## assert.notDeepEqual(actual, expected, [message])
-Tests for any deep inequality.
-
-## assert.strictEqual(actual, expected, [message])
-Tests strict equality, as determined by the strict equality operator ( === )
-
-## assert.notStrictEqual(actual, expected, [message])
-Tests strict non-equality, as determined by the strict not equal operator ( !== )
-
-## assert.throws(block, [error], [message])
-Expects block to throw an error. error can be constructor, regexp or validation function.
-
-Validate instanceof using constructor:
 
 ```javascript
-assert.throws(function() { throw new Error("Wrong value"); }, Error);
-```
+// for use with Node-style callbacks...
+var async = require("async");
 
-Validate error message using RegExp:
+var obj = {dev: "/dev.json", test: "/test.json", prod: "/prod.json"};
+var configs = {};
+
+async.forEachOf(obj, (value, key, callback) => {
+    fs.readFile(__dirname + value, "utf8", (err, data) => {
+        if (err) return callback(err);
+        try {
+            configs[key] = JSON.parse(data);
+        } catch (e) {
+            return callback(e);
+        }
+        callback();
+    });
+}, err => {
+    if (err) console.error(err.message);
+    // configs is now a map of JSON data
+    doSomethingWith(configs);
+});
+```
 
 ```javascript
-assert.throws(function() { throw new Error("Wrong value"); }, /value/);
+var async = require("async");
+
+// ...or ES2017 async functions
+async.mapLimit(urls, 5, async function(url) {
+    const response = await fetch(url)
+    return response.body
+}, (err, results) => {
+    if (err) throw err
+    // results is now an array of the response bodies
+    console.log(results)
+})
 ```
-
-Custom error validation:
-
-```javascript
-assert.throws(function() {
-    throw new Error("Wrong value");
-}, function(err) {
-    if ( (err instanceof Error) && /value/.test(err) ) {
-        return true;
-    }
-}, "unexpected error");
-```
-
-## assert.doesNotThrow(block, [message])
-Expects block not to throw an error, see assert.throws for details.
-
-## assert.ifError(value)
-Tests if value is not a false value, throws if it is a true value. Useful when testing the first argument, error in callbacks.
