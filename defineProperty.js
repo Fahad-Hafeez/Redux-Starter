@@ -1,4 +1,4 @@
-function _defineProperty(obj, key, value) {
+export default function _defineProperty(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
       value: value,
@@ -12,6 +12,3 @@ function _defineProperty(obj, key, value) {
 
   return obj;
 }
-
-module.exports = _defineProperty;
-module.exports["default"] = module.exports, module.exports.__esModule = true;

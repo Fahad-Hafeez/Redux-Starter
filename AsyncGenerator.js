@@ -1,6 +1,5 @@
-var AwaitValue = require("./AwaitValue.js");
-
-function AsyncGenerator(gen) {
+import AwaitValue from "./AwaitValue.js";
+export default function AsyncGenerator(gen) {
   var front, back;
 
   function send(key, arg) {
@@ -94,6 +93,3 @@ AsyncGenerator.prototype["throw"] = function (arg) {
 AsyncGenerator.prototype["return"] = function (arg) {
   return this._invoke("return", arg);
 };
-
-module.exports = AsyncGenerator;
-module.exports["default"] = module.exports, module.exports.__esModule = true;

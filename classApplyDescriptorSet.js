@@ -1,4 +1,4 @@
-function _classApplyDescriptorSet(receiver, descriptor, value) {
+export default function _classApplyDescriptorSet(receiver, descriptor, value) {
   if (descriptor.set) {
     descriptor.set.call(receiver, value);
   } else {
@@ -9,6 +9,3 @@ function _classApplyDescriptorSet(receiver, descriptor, value) {
     descriptor.value = value;
   }
 }
-
-module.exports = _classApplyDescriptorSet;
-module.exports["default"] = module.exports, module.exports.__esModule = true;

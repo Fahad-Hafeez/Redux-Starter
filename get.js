@@ -1,11 +1,9 @@
-var superPropBase = require("./superPropBase.js");
-
-function _get(target, property, receiver) {
+import superPropBase from "./superPropBase.js";
+export default function _get(target, property, receiver) {
   if (typeof Reflect !== "undefined" && Reflect.get) {
-    module.exports = _get = Reflect.get;
-    module.exports["default"] = module.exports, module.exports.__esModule = true;
+    _get = Reflect.get;
   } else {
-    module.exports = _get = function _get(target, property, receiver) {
+    _get = function _get(target, property, receiver) {
       var base = superPropBase(target, property);
       if (!base) return;
       var desc = Object.getOwnPropertyDescriptor(base, property);
@@ -16,12 +14,7 @@ function _get(target, property, receiver) {
 
       return desc.value;
     };
-
-    module.exports["default"] = module.exports, module.exports.__esModule = true;
   }
 
   return _get(target, property, receiver || target);
 }
-
-module.exports = _get;
-module.exports["default"] = module.exports, module.exports.__esModule = true;

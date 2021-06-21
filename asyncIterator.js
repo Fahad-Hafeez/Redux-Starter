@@ -1,4 +1,4 @@
-function _asyncIterator(iterable) {
+export default function _asyncIterator(iterable) {
   var method;
 
   if (typeof Symbol !== "undefined") {
@@ -11,6 +11,3 @@ function _asyncIterator(iterable) {
   if (method == null) throw new TypeError("Object is not async iterable");
   return method.call(iterable);
 }
-
-module.exports = _asyncIterator;
-module.exports["default"] = module.exports, module.exports.__esModule = true;

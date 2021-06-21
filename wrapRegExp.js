@@ -1,15 +1,11 @@
-var _typeof = require("@babel/runtime/helpers/typeof")["default"];
-
-var setPrototypeOf = require("./setPrototypeOf.js");
-
-var inherits = require("./inherits.js");
-
-function _wrapRegExp() {
-  module.exports = _wrapRegExp = function _wrapRegExp(re, groups) {
+import _typeof from "@babel/runtime/helpers/typeof";
+import setPrototypeOf from "./setPrototypeOf.js";
+import inherits from "./inherits.js";
+export default function _wrapRegExp() {
+  _wrapRegExp = function _wrapRegExp(re, groups) {
     return new BabelRegExp(re, undefined, groups);
   };
 
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
   var _super = RegExp.prototype;
 
   var _groups = new WeakMap();
@@ -67,6 +63,3 @@ function _wrapRegExp() {
 
   return _wrapRegExp.apply(this, arguments);
 }
-
-module.exports = _wrapRegExp;
-module.exports["default"] = module.exports, module.exports.__esModule = true;

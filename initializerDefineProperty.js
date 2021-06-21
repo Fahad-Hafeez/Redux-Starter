@@ -1,4 +1,4 @@
-function _initializerDefineProperty(target, property, descriptor, context) {
+export default function _initializerDefineProperty(target, property, descriptor, context) {
   if (!descriptor) return;
   Object.defineProperty(target, property, {
     enumerable: descriptor.enumerable,
@@ -7,6 +7,3 @@ function _initializerDefineProperty(target, property, descriptor, context) {
     value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
   });
 }
-
-module.exports = _initializerDefineProperty;
-module.exports["default"] = module.exports, module.exports.__esModule = true;

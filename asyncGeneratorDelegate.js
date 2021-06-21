@@ -1,4 +1,4 @@
-function _asyncGeneratorDelegate(inner, awaitWrap) {
+export default function _asyncGeneratorDelegate(inner, awaitWrap) {
   var iter = {},
       waiting = false;
 
@@ -52,6 +52,3 @@ function _asyncGeneratorDelegate(inner, awaitWrap) {
 
   return iter;
 }
-
-module.exports = _asyncGeneratorDelegate;
-module.exports["default"] = module.exports, module.exports.__esModule = true;

@@ -1,6 +1,5 @@
-var _typeof = require("@babel/runtime/helpers/typeof")["default"];
-
-function _toPrimitive(input, hint) {
+import _typeof from "@babel/runtime/helpers/typeof";
+export default function _toPrimitive(input, hint) {
   if (_typeof(input) !== "object" || input === null) return input;
   var prim = input[Symbol.toPrimitive];
 
@@ -12,6 +11,3 @@ function _toPrimitive(input, hint) {
 
   return (hint === "string" ? String : Number)(input);
 }
-
-module.exports = _toPrimitive;
-module.exports["default"] = module.exports, module.exports.__esModule = true;

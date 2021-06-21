@@ -1,4 +1,4 @@
-function _objectWithoutPropertiesLoose(source, excluded) {
+export default function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
   var target = {};
   var sourceKeys = Object.keys(source);
@@ -12,6 +12,3 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
   return target;
 }
-
-module.exports = _objectWithoutPropertiesLoose;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
